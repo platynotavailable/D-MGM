@@ -1,48 +1,35 @@
-* {
-  box-sizing: border-box;
-}
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap");
 
-html,
-body,
-#root {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
+* { box-sizing: border-box; }
+html, body, #root { width: 100%; height: 100%; margin: 0; padding: 0; }
+body { overflow: hidden; background: #02070a; color: #fff; font-family: Inter, system-ui, sans-serif; }
+button, input, textarea, select { font: inherit; }
+button { border: 0; }
+.app { position: relative; width: 100vw; height: 100vh; overflow: hidden; background: #02070a; }
 
-body {
-  margin: 0;
+.login-page { position: relative; width: 100%; height: 100%; overflow: hidden; display:flex; align-items:center; justify-content:flex-start; background:#02070a; isolation:isolate; }
+.login-earth { position:absolute; width:min(1080px,82vw); height:min(1080px,82vw); right:-12%; bottom:-44%; border-radius:50%; background:url("https://eoimages.gsfc.nasa.gov/images/imagerecords/57000/57730/globe_west_2048.jpg") center/cover; filter:saturate(1.15) contrast(1.05) brightness(.95); box-shadow:inset 100px 35px 170px rgba(0,0,0,.48), inset -20px -20px 90px rgba(0,0,0,.25),0 0 40px rgba(70,170,210,.12),0 0 110px rgba(45,145,190,.09); z-index:0; animation:earthDrift 18s ease-in-out infinite alternate; }
+.login-atmosphere { position:absolute; width:min(1090px,83vw); height:min(1090px,83vw); right:-12.5%; bottom:-44.5%; border-radius:50%; box-shadow:0 0 0 2px rgba(100,205,235,.16),0 0 35px rgba(75,185,220,.2),0 0 85px rgba(50,155,200,.12),0 0 150px rgba(35,110,150,.08); z-index:1; pointer-events:none; }
+.login-overlay { position:absolute; inset:0; z-index:2; pointer-events:none; background:linear-gradient(90deg,rgba(2,7,10,.99) 0%,rgba(2,7,10,.95) 24%,rgba(2,7,10,.72) 45%,rgba(2,7,10,.28) 72%,rgba(2,7,10,.05) 100%),linear-gradient(180deg,rgba(2,7,10,.04),rgba(2,7,10,.12) 55%,rgba(2,7,10,.34)); }
+.login-cloud-layer { position:absolute; top:-10%; right:-3%; width:63%; height:120%; overflow:hidden; z-index:3; pointer-events:none; opacity:.92; }
+.login-cloud { position:absolute; border-radius:50%; background:radial-gradient(ellipse at center,rgba(255,255,255,.88),rgba(255,255,255,.38) 42%,transparent 76%); filter:blur(24px); }
+.login-cloud-one { width:650px;height:410px;right:-230px;top:2%;animation:cloudDrift 20s ease-in-out infinite; }.login-cloud-two { width:520px;height:360px;right:-120px;top:24%;opacity:.72;animation:cloudDrift 26s ease-in-out infinite reverse; }.login-cloud-three { width:590px;height:390px;right:-270px;top:42%;opacity:.58;animation:cloudDrift 23s ease-in-out infinite; }.login-cloud-four { width:480px;height:340px;right:-100px;bottom:10%;opacity:.48;animation:cloudDrift 28s ease-in-out infinite reverse; }.login-cloud-five { width:420px;height:300px;right:4%;top:66%;opacity:.3;filter:blur(32px); }
+.login-grid { position:absolute; inset:0; z-index:4; pointer-events:none; opacity:.14; background-image:linear-gradient(rgba(110,210,225,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(110,210,225,.16) 1px,transparent 1px); background-size:48px 48px; mask-image:linear-gradient(90deg,black,transparent 62%); }
+.login-container { position:relative; z-index:10; width:min(460px,calc(100% - 60px)); margin-left:clamp(42px,8vw,140px); }
+.login-brand { display:flex; align-items:center; gap:14px; margin-bottom:28px; }.brand-mark { width:34px;height:34px;display:flex;align-items:flex-end;gap:4px;padding:5px;border:1px solid rgba(130,220,235,.35);border-radius:9px;background:rgba(255,255,255,.035);box-shadow:0 0 24px rgba(80,190,220,.08); }.brand-mark span { display:block; width:6px; border-radius:3px 3px 1px 1px; background:linear-gradient(180deg,#9de7ef,#4a8e9b); }.brand-mark span:nth-child(1){height:12px}.brand-mark span:nth-child(2){height:19px}.brand-mark span:nth-child(3){height:25px}
+.login-brand-title { font-size:27px;font-weight:800;letter-spacing:-1.2px; }.login-brand-subtitle { margin-top:4px;color:rgba(255,255,255,.42);font:500 7px/1.4 "DM Mono",monospace;letter-spacing:1.2px; }.login-brand-subtitle span { color:rgba(255,255,255,.18); }
+.login-card { position:relative; overflow:hidden; padding:30px; border:1px solid rgba(255,255,255,.11); border-radius:18px; background:linear-gradient(145deg,rgba(10,20,24,.82),rgba(3,9,12,.64)); backdrop-filter:blur(24px); box-shadow:0 30px 100px rgba(0,0,0,.36),inset 0 1px 0 rgba(255,255,255,.045); }.login-card::before { content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(130deg,rgba(255,255,255,.045),transparent 34%,transparent 72%,rgba(70,190,215,.025)); }
+.login-eyebrow,.dashboard-eyebrow { color:rgba(125,218,232,.65);font:500 8px/1 "DM Mono",monospace;letter-spacing:1.5px; }.login-header h1 { margin:10px 0 7px;font-size:31px;letter-spacing:-1.2px; }.login-header p { margin:0;color:rgba(255,255,255,.47);font-size:12px;line-height:1.7;max-width:360px; }
+.login-form { margin-top:27px;display:grid;gap:17px; }.input-group { display:grid;gap:7px; }.input-group label { color:rgba(255,255,255,.5);font:500 9px "DM Mono",monospace;letter-spacing:.8px;text-transform:uppercase; }.input-group input { width:100%;height:45px;padding:0 13px;border:1px solid rgba(255,255,255,.1);border-radius:9px;outline:none;background:rgba(255,255,255,.035);color:white;transition:.2s ease; }.input-group input::placeholder { color:rgba(255,255,255,.22); }.input-group input:focus { border-color:rgba(105,210,230,.5);background:rgba(105,210,230,.045);box-shadow:0 0 0 3px rgba(105,210,230,.06); }
+.login-error { display:flex;align-items:center;gap:8px;padding:9px 11px;border:1px solid rgba(255,100,100,.18);border-radius:8px;background:rgba(255,70,70,.055);color:rgba(255,190,190,.78);font-size:10px; }.error-dot { width:6px;height:6px;border-radius:50%;background:#ff6767;box-shadow:0 0 9px rgba(255,80,80,.8); }
+.login-button { position:relative;display:flex;align-items:center;justify-content:center;gap:12px;width:100%;height:46px;border-radius:9px;background:linear-gradient(135deg,#b9edf1,#6bbbc8);color:#061014;font-weight:800;font-size:10px;letter-spacing:1px;cursor:pointer;overflow:hidden;box-shadow:0 12px 30px rgba(60,180,200,.12); }.login-button::after { content:"";position:absolute;top:0;left:-55%;width:42%;height:100%;transform:skewX(-18deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);transition:left .55s ease; }.login-button:hover::after { left:120%; }.login-button:disabled{opacity:.65;cursor:wait}.button-arrow{font-size:16px}.button-spinner{width:12px;height:12px;border:1px solid rgba(0,0,0,.25);border-top-color:#061014;border-radius:50%;animation:spin .8s linear infinite;}
+.demo-access { margin-top:24px;padding-top:18px;border-top:1px solid rgba(255,255,255,.07); }.demo-access-header{display:flex;align-items:center;gap:8px;justify-content:center;color:rgba(255,255,255,.25);font:500 7px "DM Mono",monospace;letter-spacing:1.3px}.demo-line{height:1px;flex:1;background:rgba(255,255,255,.07)}.credential-row{display:flex;justify-content:space-between;margin-top:9px;color:rgba(255,255,255,.3);font:400 8px "DM Mono",monospace}.credential-row strong{color:rgba(255,255,255,.64);font-weight:500}.login-footer{display:flex;gap:8px;align-items:center;margin-top:15px;color:rgba(255,255,255,.22);font:500 7px "DM Mono",monospace;letter-spacing:.7px}.footer-separator{opacity:.35}.earth-info{position:absolute;left:32px;bottom:27px;z-index:8;display:flex;align-items:center;gap:11px;color:rgba(255,255,255,.45)}.earth-info-line{width:28px;height:1px;background:rgba(130,220,235,.45)}.earth-info-title{font:600 8px "DM Mono",monospace;letter-spacing:1.3px}.earth-info-subtitle{margin-top:4px;color:rgba(255,255,255,.25);font:500 7px "DM Mono",monospace;letter-spacing:.8px}.login-status{position:absolute;right:30px;top:28px;z-index:10;display:flex;align-items:center;gap:8px;padding:8px 11px;border:1px solid rgba(255,255,255,.1);border-radius:999px;background:rgba(5,12,15,.32);backdrop-filter:blur(12px);color:rgba(255,255,255,.46);font:500 8px "DM Mono",monospace;letter-spacing:1px}.status-indicator,.dashboard-status-dot{width:6px;height:6px;border-radius:50%;background:#69df8a;box-shadow:0 0 10px rgba(105,223,138,.75);}
 
-  overflow: hidden;
+.dashboard { position:relative;width:100%;height:100%;overflow:hidden;background:#071016;isolation:isolate; }.dashboard-header{position:absolute;top:0;left:0;right:0;height:76px;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:0 28px 0 30px;border-bottom:1px solid rgba(255,255,255,.07);background:linear-gradient(180deg,rgba(3,9,12,.88),rgba(3,9,12,.46));backdrop-filter:blur(16px)}.dashboard-brand-title{font-size:19px;font-weight:800;letter-spacing:-.6px}.dashboard-brand-subtitle{margin-top:3px;color:rgba(255,255,255,.31);font:500 7px "DM Mono",monospace;letter-spacing:1px}.dashboard-header-right{display:flex;align-items:center;gap:16px}.dashboard-status{display:flex;align-items:center;gap:7px;color:rgba(255,255,255,.42);font:500 8px "DM Mono",monospace;letter-spacing:1px}.logout-button{padding:8px 11px;border:1px solid rgba(255,255,255,.1);border-radius:7px;background:rgba(255,255,255,.035);color:rgba(255,255,255,.55);font:600 8px "DM Mono",monospace;letter-spacing:1px;cursor:pointer;transition:.2s ease}.logout-button:hover{border-color:rgba(255,120,120,.28);color:rgba(255,190,190,.85);background:rgba(255,70,70,.05)}
+.dashboard-sidebar{position:absolute;top:76px;bottom:0;left:0;width:215px;z-index:18;padding:27px 14px;border-right:1px solid rgba(255,255,255,.065);background:linear-gradient(180deg,rgba(4,12,15,.8),rgba(3,8,11,.56));backdrop-filter:blur(18px)}.sidebar-section-label{margin:0 10px 9px;color:rgba(125,218,232,.4);font:500 7px "DM Mono",monospace;letter-spacing:1.5px}.sidebar-item{position:relative;width:100%;display:flex;align-items:center;gap:10px;padding:10px;margin-bottom:3px;border-radius:7px;background:transparent;color:rgba(255,255,255,.4);font-size:10px;text-align:left;cursor:pointer;transition:.2s ease;overflow:hidden}.sidebar-item::before{content:"";position:absolute;left:0;top:7px;bottom:7px;width:2px;border-radius:2px;background:#7ed8e7;transform:scaleY(0);transition:.2s ease}.sidebar-item:hover,.sidebar-item.active{background:rgba(255,255,255,.055);color:rgba(255,255,255,.9)}.sidebar-item:hover::before,.sidebar-item.active::before{transform:scaleY(1)}.sidebar-icon{width:22px;color:rgba(255,255,255,.2);font:500 8px "DM Mono",monospace}.sidebar-item.active .sidebar-icon{color:rgba(125,218,232,.72)}.sidebar-divider{height:1px;margin:17px 10px;border-top:1px solid rgba(255,255,255,.06)}
+.dashboard-content{position:absolute;top:105px;left:245px;z-index:15;width:min(620px,calc(100% - 285px));}.dashboard-welcome{position:relative;overflow:hidden;padding:22px;border:1px solid rgba(255,255,255,.09);border-radius:14px;background:rgba(4,12,15,.5);backdrop-filter:blur(18px);box-shadow:0 20px 70px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.035)}.dashboard-welcome::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(130deg,rgba(255,255,255,.04),transparent 35%,transparent 75%,rgba(90,190,220,.03))}.dashboard-welcome h1{position:relative;margin:8px 0 7px;font-size:28px;letter-spacing:-1px}.dashboard-welcome p{position:relative;margin:0;max-width:500px;color:rgba(255,255,255,.4);font-size:11px;line-height:1.7}.dashboard-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:9px}.summary-card{position:relative;overflow:hidden;min-height:112px;padding:15px;border:1px solid rgba(255,255,255,.08);border-radius:12px;background:rgba(4,12,15,.48);backdrop-filter:blur(15px);transition:.22s ease;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}.summary-card:hover{transform:translateY(-2px);border-color:rgba(115,210,230,.2);background:rgba(8,22,27,.62)}.summary-label{display:block;color:rgba(255,255,255,.28);font:500 7px "DM Mono",monospace;letter-spacing:1px}.summary-card strong{display:block;margin-top:17px;color:rgba(255,255,255,.9);font-size:20px;letter-spacing:-.5px}.summary-status{display:block;margin-top:5px;color:rgba(255,255,255,.28);font-size:8px;line-height:1.4}.dashboard-notice{position:relative;display:flex;gap:12px;margin-top:9px;padding:15px 17px;overflow:hidden;border:1px solid rgba(255,255,255,.08);border-radius:11px;background:rgba(4,12,15,.5);backdrop-filter:blur(15px);box-shadow:0 18px 50px rgba(0,0,0,.2)}.notice-indicator{width:7px;height:7px;margin-top:4px;flex:0 0 auto;border-radius:50%;background:#ff6262;box-shadow:0 0 13px rgba(255,80,80,.7);animation:alertPulse 1.7s ease-in-out infinite}.notice-title{color:rgba(255,255,255,.63);font:600 8px "DM Mono",monospace;letter-spacing:1px}.notice-text{margin-top:5px;color:rgba(255,255,255,.31);font-size:9px;line-height:1.6;max-width:560px}
 
-  background: #071016;
+@keyframes spin{to{transform:rotate(360deg)}}@keyframes earthDrift{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(-8px,-4px,0) scale(1.012)}}@keyframes cloudDrift{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(-20px,12px,0)}}@keyframes alertPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.35);opacity:.55}}
 
-  font-family:
-    Inter,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-}
-
-button,
-input,
-textarea,
-select {
-  font: inherit;
-}
-
-button {
-  border: none;
-}
-
-.app {
-  position: relative;
-
-  width: 100vw;
-  height: 100vh;
-
-  overflow: hidden;
-}
+@media (max-width: 900px){.dashboard-content{left:190px;width:min(560px,calc(100% - 215px))}.dashboard-sidebar{width:170px}.login-container{margin-left:42px}.dashboard-summary{grid-template-columns:1fr}.summary-card{min-height:92px}}
+@media (max-width: 650px){.login-container{width:calc(100% - 32px);margin:0 16px}.login-earth{width:780px;height:780px;right:-40%;bottom:-30%}.login-cloud-layer{width:70%}.login-status{display:none}.earth-info{display:none}.dashboard-header{padding:0 14px}.dashboard-brand-subtitle,.dashboard-status{display:none}.dashboard-sidebar{width:62px;padding:22px 8px}.sidebar-section-label,.sidebar-icon{display:none}.sidebar-item{justify-content:center;padding:12px 6px;font-size:0}.sidebar-item::after{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.6}.dashboard-content{left:77px;top:92px;width:calc(100% - 92px)}}
